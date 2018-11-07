@@ -6,82 +6,81 @@
     android:id="@+id/root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
+    android:background="@android:color/darker_gray"
     tools:context=".MainActivity">
 
-    <com.kukugtu.autolayoutdemo.MyLineTextView
-        android:id="@+id/bottomView"
-        android:layout_alignParentBottom="true"
-        android:layout_width="800px"
-        android:layout_height="300px"
-        app:inTextColor="#ff0000"
-        app:inTextSize="200px"
-        app:lineColor="#00ff00"
-        app:lineSize="50px"
-        app:text="自定义View"/>
-
     <ScrollView
-        android:layout_above="@+id/bottomView"
         android:id="@+id/base_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
 
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_margin="20px"
-                android:background="@android:color/white"
-                android:text="XML中的布局"/>
 
-            <include layout="@layout/fragment_pay"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_margin="20px"
-                android:layout_marginTop="100px"
-                android:background="@android:color/white"
-                android:text="代码中添加的View"/>
+            <com.kukugtu.autolayoutdemo.MyLineTextView
+                android:id="@+id/bottomView"
+                android:layout_width="800px"
+                android:layout_height="300px"
+                app:inTextColor="#ff0000"
+                app:inTextSize="200px"
+                app:lineColor="#00ff00"
+                app:lineSize="50px"
+                app:text="自定义View"/>
 
             <com.zhy.autolayout.AutoLinearLayout
                 android:id="@+id/linearlayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="1080px"
+                android:layout_height="1080px"
                 android:background="@color/btn_bg_pre"/>
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_margin="20px"
-                android:layout_marginTop="100px"
-                android:background="@android:color/white"
-                android:text="CardView自定义ViewGroup"/>
+                android:layout_width="200px"
+                android:layout_height="200px"
+                android:layout_marginTop="200px"
+                android:background="@color/btn_bg"/>
 
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="500px">
+           <com.zhy.autolayout.AutoLinearLayout
+               android:layout_width="900px"
+               android:layout_height="300px"
+               android:orientation="horizontal">
+               <ImageView
+                   android:layout_width="300px"
+                   android:layout_height="300px"
+                   android:scaleType="fitXY"
+                   android:src="@drawable/head21"/>
+
+               <com.zhy.autolayout.AutoLinearLayout
+                   android:layout_width="300px"
+                   android:layout_height="300px"
+                   android:background="#ff0000"
+                   android:orientation="vertical"/>
+           </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="900px"
+                android:layout_marginBottom="200px"
+                android:orientation="horizontal"
+                android:layout_height="300px">
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/ooooo1"
+                    android:layout_width="300px"
+                    android:layout_height="300px"
+                    android:background="#ff0000"
+                    android:orientation="vertical"/>
                 <ImageView
+                    android:id="@+id/ooooo2"
                     android:layout_width="300px"
                     android:layout_height="300px"
                     android:scaleType="fitXY"
-                    android:src="@drawable/timg3"/>
-            </android.support.v7.widget.CardView>
+                    android:src="@drawable/head21"/>
 
-            <com.kukugtu.autolayoutdemo.AutoCardView
-                android:layout_width="match_parent"
-                android:layout_height="500px">
-                <ImageView
-                    android:layout_width="300px"
-                    android:scaleType="fitXY"
-                    android:layout_height="300px"
-                    android:src="@drawable/timg3"/>
-            </com.kukugtu.autolayoutdemo.AutoCardView>
 
+            </com.zhy.autolayout.AutoLinearLayout>
 
         </com.zhy.autolayout.AutoLinearLayout>
 

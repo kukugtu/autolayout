@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
+import com.zhy.autolayout.config.AutoLayoutConifg;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -59,12 +61,16 @@ public class DisplayUtil {
 
     //获取设定与设备屏幕宽度比例
     public static float getRateWid(Context context) {
-        return getDisplay(context).widthPixels / ((float) getMetaDataWid(context));
+        int a = getDisplay(context).widthPixels;
+        float b = AutoLayoutConifg.getInstance().getDesignWidth();
+        return a / b;
     }
 
     //获取设定与设备屏幕高比例
     public static float getRateHei(Context context) {
-        return getDisplay(context).heightPixels / ((float) getMetaDataHei(context));
+        int a = getDisplay(context).heightPixels;
+        float b = AutoLayoutConifg.getInstance().getDesignHeight();
+        return a / b;
     }
 
     //获取设定参数

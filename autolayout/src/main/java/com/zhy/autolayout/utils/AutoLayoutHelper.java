@@ -46,28 +46,27 @@ import com.zhy.autolayout.config.AutoLayoutConifg;
 public class AutoLayoutHelper {
     private final ViewGroup mHost;
 
-    private static final int[] LL = new int[]
-            { //
-                    android.R.attr.textSize,
-                    android.R.attr.padding,//
-                    android.R.attr.paddingLeft,//
-                    android.R.attr.paddingTop,//
-                    android.R.attr.paddingRight,//
-                    android.R.attr.paddingBottom,//
-                    android.R.attr.layout_width,//
-                    android.R.attr.layout_height,//
-                    android.R.attr.layout_margin,//
-                    android.R.attr.layout_marginLeft,//
-                    android.R.attr.layout_marginTop,//
-                    android.R.attr.layout_marginRight,//
-                    android.R.attr.layout_marginBottom,//
-                    android.R.attr.maxWidth,//
-                    android.R.attr.maxHeight,//
-                    android.R.attr.minWidth,//
-                    android.R.attr.minHeight,//16843072
+    private static final int[] LL = new int[]{ //
+            android.R.attr.textSize,
+            android.R.attr.padding,//
+            android.R.attr.paddingLeft,//
+            android.R.attr.paddingTop,//
+            android.R.attr.paddingRight,//
+            android.R.attr.paddingBottom,//
+            android.R.attr.layout_width,//
+            android.R.attr.layout_height,//
+            android.R.attr.layout_margin,//
+            android.R.attr.layout_marginLeft,//
+            android.R.attr.layout_marginTop,//
+            android.R.attr.layout_marginRight,//
+            android.R.attr.layout_marginBottom,//
+            android.R.attr.maxWidth,//
+            android.R.attr.maxHeight,//
+            android.R.attr.minWidth,//
+            android.R.attr.minHeight,//16843072
 
 
-            };
+    };
 
     private static final int INDEX_TEXT_SIZE = 0;
     private static final int INDEX_PADDING = 1;
@@ -142,8 +141,7 @@ public class AutoLayoutHelper {
         int n = array.getIndexCount();
 
 
-
-        for (int i = 0; i < n-1; i++) {
+        for (int i = 0; i < n; i++) {
             int index = array.getIndex(i);
 
             if (!DimenUtils.isPxVal(array.peekValue(index)))
@@ -152,8 +150,7 @@ public class AutoLayoutHelper {
             int pxVal = 0;
             try {
                 pxVal = array.getDimensionPixelOffset(index, 0);
-            } catch (Exception ignore)
-            {
+            } catch (Exception ignore) {
                 continue;
             }
             switch (index) {

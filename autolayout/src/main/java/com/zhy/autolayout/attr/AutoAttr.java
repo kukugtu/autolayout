@@ -1,5 +1,6 @@
 package com.zhy.autolayout.attr;
 
+import android.util.Log;
 import android.view.View;
 
 import com.zhy.autolayout.utils.AutoUtils;
@@ -27,14 +28,16 @@ public abstract class AutoAttr {
 
         int val;
         if (useDefault()) {
+            Log.e("SSSSS",view.toString()+"\r\n\r\n");
             val = defaultBaseWidth() ? getPercentWidthSize() : getPercentHeightSize();
+//            val =  getPercentHeightSize();
+
 
         } else if (baseWidth()) {
             val = getPercentWidthSize();
 
         } else {
             val = getPercentHeightSize();
-
         }
 
         if (val > 0) {

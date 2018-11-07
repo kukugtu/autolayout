@@ -1,5 +1,6 @@
 package com.zhy.autolayout.utils;
 
+import android.util.Log;
 import android.view.View;
 
 import com.zhy.autolayout.AutoLayoutInfo;
@@ -116,6 +117,7 @@ public class AutoUtils
         int designWidth = AutoLayoutConifg.getInstance().getDesignWidth();
 
         int res = val * screenWidth;
+        Log.e("SSSSS","Width:"+res / designWidth+"\r\n\r\n");
         if (res % designWidth == 0)
         {
             return res / designWidth;
@@ -132,6 +134,7 @@ public class AutoUtils
         int designHeight = AutoLayoutConifg.getInstance().getDesignHeight();
 
         int res = val * screenHeight;
+        Log.e("SSSSS","Height:"+res / designHeight+"\r\n\r\n");
         if (res % designHeight == 0)
         {
             return res / designHeight;
