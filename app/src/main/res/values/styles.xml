@@ -8,7 +8,7 @@
     <style name="SwipeBack.Transparent.Theme" parent="AppTheme">
         <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
         <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsTranslucent">false</item>
         <!-- 虚拟按键不透明 -->
         <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">false</item>
         <item name="android:fitsSystemWindows">false</item>

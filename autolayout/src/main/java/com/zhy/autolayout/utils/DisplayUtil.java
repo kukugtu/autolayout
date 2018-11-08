@@ -45,6 +45,12 @@ public class DisplayUtil {
         return displayHei / designHeight;
     }
 
+    //px转sp 设置代码中设置字体大小时，好像大小事sp
+    public static int px2sp(Context context, float pxValue) {
+        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (pxValue / fontScale + 0.5f);
+    }
+
     //获取Display对象
     public static DisplayMetrics getDisplay(Context context) {
         DisplayMetrics metrics = new DisplayMetrics();

@@ -64,11 +64,9 @@ public class MyLineTextView extends View {
         paint.setStrokeWidth(DisplayUtil.getRateWid() * lineSize);
         canvas.drawLine(0, height-(DisplayUtil.getRateWid() * lineSize)/2, width, height-(DisplayUtil.getRateWid() * lineSize)/2, paint);
 
-
         paint.setTextSize(DisplayUtil.getRateWid() * inTextSize);
         paint.setColor(textColor);
         Paint.FontMetricsInt centerfontMetricsInt = paint.getFontMetricsInt();
-        int baselinehei  = centerfontMetricsInt.descent - centerfontMetricsInt.bottom;
         canvas.drawText(text, 0, height-(DisplayUtil.getRateHei() * lineSize)-centerfontMetricsInt.descent, paint);
     }
 

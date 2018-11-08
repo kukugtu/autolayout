@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="design_width"
             android:value="1080"/>
@@ -17,14 +16,16 @@
             android:name="design_height"
             android:value="1920"/>
 
-        <activity android:name=".MainActivity"
-                  android:screenOrientation="portrait"
+        <activity
+            android:name=".MainActivity"
             android:theme="@style/SwipeBack.Transparent.Theme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".ExtraActivity">
         </activity>
     </application>
 

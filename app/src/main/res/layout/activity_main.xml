@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/darker_gray"
@@ -29,7 +28,7 @@
                 android:text="普通的View"/>
 
             <com.kukugtu.autolayoutdemo.MyLineTextView
-                android:id="@+id/bottomView"
+                android:id="@+id/my_view"
                 android:layout_width="800px"
                 android:layout_height="300px"
                 android:layout_marginTop="200px"
@@ -92,6 +91,20 @@
                 android:layout_marginTop="200px"
                 android:background="#ff0000"
                 android:text="代码中更改属性"/>
+
+            <com.kukugtu.autolayoutdemo.AutoCardView
+                android:layout_marginTop="200px"
+                android:layout_width="300px"
+                android:layout_height="300px"
+                app:cardCornerRadius="10px">
+
+                <TextView
+                    android:textSize="30px"
+                    android:layout_width="300px"
+                    android:layout_height="300px"
+                    android:background="#ff0000"
+                    android:text="CardView中的View"/>
+            </com.kukugtu.autolayoutdemo.AutoCardView>
 
         </com.zhy.autolayout.AutoLinearLayout>
 
