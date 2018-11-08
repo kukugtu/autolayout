@@ -53,7 +53,7 @@ public class MyLineTextView extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         width = (int) (MeasureSpec.getSize(widthMeasureSpec));
-        height = (int) (MeasureSpec.getSize(heightMeasureSpec)*DisplayUtil.getRateHei(getContext()));
+        height = (int) (MeasureSpec.getSize(heightMeasureSpec)*DisplayUtil.getRateHei());
         setMeasuredDimension(width, height);
     }
 
@@ -61,15 +61,15 @@ public class MyLineTextView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         paint.setColor(lineColor);
-        paint.setStrokeWidth(DisplayUtil.getRateWid(getContext()) * lineSize);
-        canvas.drawLine(0, height-(DisplayUtil.getRateWid(getContext()) * lineSize)/2, width, height-(DisplayUtil.getRateWid(getContext()) * lineSize)/2, paint);
+        paint.setStrokeWidth(DisplayUtil.getRateWid() * lineSize);
+        canvas.drawLine(0, height-(DisplayUtil.getRateWid() * lineSize)/2, width, height-(DisplayUtil.getRateWid() * lineSize)/2, paint);
 
 
-        paint.setTextSize(DisplayUtil.getRateWid(getContext()) * inTextSize);
+        paint.setTextSize(DisplayUtil.getRateWid() * inTextSize);
         paint.setColor(textColor);
         Paint.FontMetricsInt centerfontMetricsInt = paint.getFontMetricsInt();
         int baselinehei  = centerfontMetricsInt.descent - centerfontMetricsInt.bottom;
-        canvas.drawText(text, 0, height-(DisplayUtil.getRateHei(getContext()) * lineSize)-centerfontMetricsInt.descent, paint);
+        canvas.drawText(text, 0, height-(DisplayUtil.getRateHei() * lineSize)-centerfontMetricsInt.descent, paint);
     }
 
     @Override

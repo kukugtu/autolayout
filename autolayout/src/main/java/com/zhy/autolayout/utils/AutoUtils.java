@@ -25,11 +25,6 @@ public class AutoUtils {
         autoTextSize(view, AutoAttr.BASE_DEFAULT);
     }
 
-    /**
-     * @param view
-     * @param attrs #Attrs.WIDTH|Attrs.HEIGHT
-     * @param base  AutoAttr.BASE_WIDTH|AutoAttr.BASE_HEIGHT|AutoAttr.BASE_DEFAULT
-     */
     public static void auto(View view, int attrs, int base) {
         AutoLayoutInfo autoLayoutInfo = AutoLayoutInfo.getAttrFromView(view, attrs, base);
         if (autoLayoutInfo != null)

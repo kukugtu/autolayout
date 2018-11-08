@@ -52,19 +52,10 @@ public class AutoLayoutConifg {
 
 
     public void init(Context context) {
-        initMetaData(context);
-
         mScreenWidth = DisplayUtil.getDisplay(context).widthPixels;
         mScreenHeight = DisplayUtil.getDisplay(context).heightPixels;
-    }
-
-    private void initMetaData(Context context) {
-
         mDesignWidth = DisplayUtil.getMetaDataWid(context);
-        mDesignHeight = mDesignWidth *
-                DisplayUtil.getDisplay(context).heightPixels / DisplayUtil.getDisplay(context).widthPixels;
-
+        mDesignHeight = mDesignWidth * mScreenHeight / mScreenWidth;
     }
-
 
 }

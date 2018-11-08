@@ -18,6 +18,7 @@
             android:value="1920"/>
 
         <activity android:name=".MainActivity"
+                  android:screenOrientation="portrait"
             android:theme="@style/SwipeBack.Transparent.Theme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

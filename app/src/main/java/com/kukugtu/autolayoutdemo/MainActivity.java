@@ -1,6 +1,7 @@
 package com.kukugtu.autolayoutdemo;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,34 +23,40 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DisplayUtil.setStatusBarLeave((ViewGroup) findViewById(R.id.base_view), this);
+        Util.setStatusBarLeave((ViewGroup) findViewById(R.id.base_view), this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            Util.setStatusBarTextStyle(this, Util.LIGHT_TEXTCOLOR);
+        }
         getRootView().setBackgroundColor(Color.BLACK);
-        Util.setStatusBarTextStyle(this, Util.LIGHT_TEXTCOLOR);
 
 
         //设置居中的一个TextView
-        AutoLinearLayout view = findViewById(R.id.linearlayout);
+        AutoLinearLayout viewGroup = findViewById(R.id.linearlayout);
         TextView textView = new TextView(this);
         textView.setText("我是从代码中添加的View");
         textView.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
-
-        //        LinearLayout.LayoutParams params = new AutoLinearLayout.LayoutParams(
-        //                (int) (DisplayUtil.getRateWid(this) * 540),
-        //                (int) (DisplayUtil.getRateHei(this) * 540));
-        //        params.leftMargin = (int) (DisplayUtil.getRateWid(this) * 270);
-        //        params.bottomMargin = (int) (DisplayUtil.getRateHei(this) * 270);
-        //        params.topMargin = (int) (DisplayUtil.getRateHei(this) * 270);
-
-
         AutoLinearLayout.LayoutParams params = new AutoLinearLayout.LayoutParams(540, 540);
         params.leftMargin = 270;
         params.bottomMargin = 270;
         params.topMargin = 270;
-
         textView.setLayoutParams(params);
         AutoUtils.auto(textView);
+        viewGroup.addView(textView);
 
-        view.addView(textView);
+
+        //更改View的属性
+        TextView change_attr = findViewById(R.id.change_attr);
+        //此处需要注意，原本是谁的layoutparams就用谁的，如果用了ViewGroup的可能会出现属性丢失
+        AutoLinearLayout.LayoutParams layoutParams = new AutoLinearLayout.LayoutParams(
+                (AutoLinearLayout.LayoutParams) change_attr.getLayoutParams());
+        //可不用DisplayUtil用AutoUtils
+        layoutParams.width = (int) (600 * DisplayUtil.getRateWid());
+        change_attr.setLayoutParams(layoutParams);
+
+        //        layoutParams.width = 600;
+        //        change_attr.setLayoutParams(layoutParams);
+        //        AutoUtils.auto(change_attr);
+
     }
 
     @Override
