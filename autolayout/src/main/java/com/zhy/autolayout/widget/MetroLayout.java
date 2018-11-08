@@ -17,17 +17,13 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by zhy on 15/12/10.
- *
- * //do not use
+ * do not use
  */
-public class MetroLayout extends ViewGroup
-{
+public class MetroLayout extends ViewGroup {
 
     private final AutoLayoutHelper mHelper = new AutoLayoutHelper(this);
 
-    private static class MetroBlock
-    {
+    private static class MetroBlock {
         int left;
         int top;
         int width;
@@ -36,8 +32,7 @@ public class MetroLayout extends ViewGroup
     private List<MetroBlock> mAvailablePos = new ArrayList<>();
     private int mDivider;
 
-    public MetroLayout(Context context, AttributeSet attrs)
-    {
+    public MetroLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MetroLayout);
         mDivider = a.getDimensionPixelOffset(R.styleable.MetroLayout_metro_divider, 0);
@@ -47,8 +42,7 @@ public class MetroLayout extends ViewGroup
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
         if (true)
             randomColor();
@@ -61,12 +55,10 @@ public class MetroLayout extends ViewGroup
 
     }
 
-    private void randomColor()
-    {
+    private void randomColor() {
         Random r = new Random(255);
 
-        for (int i = 0, n = getChildCount(); i < n; i++)
-        {
+        for (int i = 0, n = getChildCount(); i < n; i++) {
             View v = getChildAt(i);
 
             v.setBackgroundColor(Color.argb(100, r.nextInt(), r.nextInt(), r.nextInt()));
@@ -75,8 +67,7 @@ public class MetroLayout extends ViewGroup
 
 
     @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b)
-    {
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
 
         initAvailablePosition();
 
@@ -84,10 +75,10 @@ public class MetroLayout extends ViewGroup
         int top = 0;
         int divider = mDivider;
 
-        for (int i = 0, n = getChildCount(); i < n; i++)
-        {
+        for (int i = 0, n = getChildCount(); i < n; i++) {
             View v = getChildAt(i);
-            if (v.getVisibility() == View.GONE) continue;
+            if (v.getVisibility() == View.GONE)
+                continue;
 
             MetroBlock newPos = findAvailablePos(v);
             left = newPos.left;
@@ -101,12 +92,10 @@ public class MetroLayout extends ViewGroup
 
             v.layout(left, top, right, bottom);
 
-            if (childWidth + divider < newPos.width)
-            {
+            if (childWidth + divider < newPos.width) {
                 newPos.left += childWidth + divider;
                 newPos.width -= childWidth + divider;
-            } else
-            {
+            } else {
                 mAvailablePos.remove(newPos);
             }
 
@@ -121,25 +110,22 @@ public class MetroLayout extends ViewGroup
         }
     }
 
-    private void mergeAvailablePosition()
-    {
-        if (mAvailablePos.size() <= 1) return;
+    private void mergeAvailablePosition() {
+        if (mAvailablePos.size() <= 1)
+            return;
 
         List<MetroBlock> needRemoveBlocks = new ArrayList<>();
 
         MetroBlock one = mAvailablePos.get(0);
         MetroBlock two = mAvailablePos.get(1);
 
-        for (int i = 1, n = mAvailablePos.size(); i < n - 1; i++)
-        {
-            if (one.top == two.top)
-            {
+        for (int i = 1, n = mAvailablePos.size(); i < n - 1; i++) {
+            if (one.top == two.top) {
                 one.width = one.width + two.width;
                 needRemoveBlocks.add(one);
                 two.left = one.left;
                 two = mAvailablePos.get(i + 1);
-            } else
-            {
+            } else {
                 one = mAvailablePos.get(i);
                 two = mAvailablePos.get(i + 1);
             }
@@ -149,8 +135,7 @@ public class MetroLayout extends ViewGroup
 
     }
 
-    private void initAvailablePosition()
-    {
+    private void initAvailablePosition() {
         mAvailablePos.clear();
         MetroBlock first = new MetroBlock();
         first.left = getPaddingLeft();
@@ -159,11 +144,9 @@ public class MetroLayout extends ViewGroup
         mAvailablePos.add(first);
     }
 
-    private MetroBlock findAvailablePos(View view)
-    {
+    private MetroBlock findAvailablePos(View view) {
         MetroBlock p = new MetroBlock();
-        if (mAvailablePos.size() == 0)
-        {
+        if (mAvailablePos.size() == 0) {
             p.left = getPaddingLeft();
             p.top = getPaddingTop();
             p.width = getMeasuredWidth();
@@ -171,10 +154,8 @@ public class MetroLayout extends ViewGroup
         }
         int min = mAvailablePos.get(0).top;
         MetroBlock minHeightPos = mAvailablePos.get(0);
-        for (MetroBlock _p : mAvailablePos)
-        {
-            if (_p.top < min)
-            {
+        for (MetroBlock _p : mAvailablePos) {
+            if (_p.top < min) {
                 min = _p.top;
                 minHeightPos = _p;
             }
@@ -184,46 +165,38 @@ public class MetroLayout extends ViewGroup
 
 
     @Override
-    public MetroLayout.LayoutParams generateLayoutParams(AttributeSet attrs)
-    {
+    public MetroLayout.LayoutParams generateLayoutParams(AttributeSet attrs) {
         return new LayoutParams(getContext(), attrs);
     }
 
     public static class LayoutParams extends ViewGroup.MarginLayoutParams
-            implements AutoLayoutHelper.AutoLayoutParams
-    {
+            implements AutoLayoutHelper.AutoLayoutParams {
         private AutoLayoutInfo mAutoLayoutInfo;
 
-        public LayoutParams(Context c, AttributeSet attrs)
-        {
+        public LayoutParams(Context c, AttributeSet attrs) {
             super(c, attrs);
             mAutoLayoutInfo = AutoLayoutHelper.getAutoLayoutInfo(c, attrs);
         }
 
-        public LayoutParams(int width, int height)
-        {
+        public LayoutParams(int width, int height) {
             super(width, height);
         }
 
-        public LayoutParams(ViewGroup.LayoutParams source)
-        {
+        public LayoutParams(ViewGroup.LayoutParams source) {
             super(source);
         }
 
-        public LayoutParams(MarginLayoutParams source)
-        {
+        public LayoutParams(MarginLayoutParams source) {
             super(source);
         }
 
-        public LayoutParams(LayoutParams source)
-        {
+        public LayoutParams(LayoutParams source) {
             this((ViewGroup.LayoutParams) source);
             mAutoLayoutInfo = source.mAutoLayoutInfo;
         }
 
         @Override
-        public AutoLayoutInfo getAutoLayoutInfo()
-        {
+        public AutoLayoutInfo getAutoLayoutInfo() {
             return mAutoLayoutInfo;
         }
 

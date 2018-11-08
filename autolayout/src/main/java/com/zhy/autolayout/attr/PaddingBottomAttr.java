@@ -2,31 +2,23 @@ package com.zhy.autolayout.attr;
 
 import android.view.View;
 
-/**
- * Created by zhy on 15/12/5.
- */
-public class PaddingBottomAttr extends AutoAttr
-{
-    public PaddingBottomAttr(int pxVal, int baseWidth, int baseHeight)
-    {
+public class PaddingBottomAttr extends AutoAttr {
+    public PaddingBottomAttr(int pxVal, int baseWidth, int baseHeight) {
         super(pxVal, baseWidth, baseHeight);
     }
 
     @Override
-    protected int attrVal()
-    {
+    protected int attrVal() {
         return Attrs.PADDING_BOTTOM;
     }
 
     @Override
-    protected boolean defaultBaseWidth()
-    {
+    protected boolean defaultBaseWidth() {
         return false;
     }
 
     @Override
-    protected void execute(View view, int val)
-    {
+    protected void execute(View view, int val) {
         int l = view.getPaddingLeft();
         int t = view.getPaddingTop();
         int r = view.getPaddingRight();
@@ -36,11 +28,9 @@ public class PaddingBottomAttr extends AutoAttr
     }
 
 
-    public static PaddingBottomAttr generate(int val, int baseFlag)
-    {
+    public static PaddingBottomAttr generate(int val, int baseFlag) {
         PaddingBottomAttr attr = null;
-        switch (baseFlag)
-        {
+        switch (baseFlag) {
             case AutoAttr.BASE_WIDTH:
                 attr = new PaddingBottomAttr(val, Attrs.PADDING_BOTTOM, 0);
                 break;

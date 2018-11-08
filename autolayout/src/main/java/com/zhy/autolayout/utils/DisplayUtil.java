@@ -6,10 +6,10 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
 
 import com.zhy.autolayout.config.AutoLayoutConifg;
 
@@ -61,16 +61,16 @@ public class DisplayUtil {
 
     //获取设定与设备屏幕宽度比例
     public static float getRateWid(Context context) {
-        int a = getDisplay(context).widthPixels;
-        float b = AutoLayoutConifg.getInstance().getDesignWidth();
-        return a / b;
+        int displayWid = getDisplay(context).widthPixels;
+        float designWid = AutoLayoutConifg.getInstance().getDesignWidth();
+        return displayWid / designWid;
     }
 
     //获取设定与设备屏幕高比例
     public static float getRateHei(Context context) {
-        int a = getDisplay(context).heightPixels;
-        float b = AutoLayoutConifg.getInstance().getDesignHeight();
-        return a / b;
+        int displayHei = getDisplay(context).heightPixels;
+        float designHeight = AutoLayoutConifg.getInstance().getDesignHeight();
+        return displayHei / designHeight;
     }
 
     //获取设定参数
@@ -89,31 +89,10 @@ public class DisplayUtil {
         return metaDataValue;
     }
 
-    //获取通知栏高度
-    public static int getStatusHei(Context context) {
-        int statusBarHeight2 = -1;
-        try {
-            Class<?> clazz = Class.forName("com.android.internal.R$dimen");
-            Object object = clazz.newInstance();
-            int height = Integer.parseInt(clazz.getField("status_bar_height")
-                    .get(object).toString());
-            statusBarHeight2 = context.getResources().getDimensionPixelSize(height);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return statusBarHeight2;
-    }
-
-    public static int px2sp(Context context, float pxValue) {
-        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
-        return (int) (pxValue / fontScale + 0.5f);
-    }
-
-
     //用于适配通知栏的高度，需要设置多嵌套一层
     public static void setStatusBarLeave(ViewGroup baseView, Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            LinearLayout.MarginLayoutParams lp = (LinearLayout.LayoutParams) baseView.getLayoutParams();
+            ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) baseView.getLayoutParams();
             int hei = getStatusHeight(context);
             lp.setMargins(0, hei, 0, 0);
             baseView.setLayoutParams(lp);
@@ -121,7 +100,7 @@ public class DisplayUtil {
     }
 
     /**
-     * 获得状态栏的高度 px
+     * 获得状态栏的高度px
      */
     public static int getStatusHeight(Context context) {
 
@@ -141,5 +120,18 @@ public class DisplayUtil {
     //获取屏幕定义的DPI
     public static int getPingMuSize(Context mContext) {
         return getDisplay(mContext).densityDpi;
+    }
+
+
+    public static boolean isPxVal(TypedValue val) {
+        if (val != null && val.type == TypedValue.TYPE_DIMENSION &&
+                getComplexUnit(val.data) == TypedValue.COMPLEX_UNIT_PX) {
+            return true;
+        }
+        return false;
+    }
+
+    private static int getComplexUnit(int data) {
+        return TypedValue.COMPLEX_UNIT_MASK & (data >> TypedValue.COMPLEX_UNIT_SHIFT);
     }
 }

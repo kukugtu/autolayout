@@ -1,14 +1,9 @@
 package com.zhy.autolayout.attr;
 
-import android.util.Log;
 import android.view.View;
 
 import com.zhy.autolayout.utils.AutoUtils;
 
-
-/**
- * Created by zhy on 15/12/4.
- */
 public abstract class AutoAttr {
     public static final int BASE_WIDTH = 1;
     public static final int BASE_HEIGHT = 2;
@@ -28,20 +23,15 @@ public abstract class AutoAttr {
 
         int val;
         if (useDefault()) {
-            Log.e("SSSSS",view.toString()+"\r\n\r\n");
             val = defaultBaseWidth() ? getPercentWidthSize() : getPercentHeightSize();
-//            val =  getPercentHeightSize();
-
-
         } else if (baseWidth()) {
             val = getPercentWidthSize();
 
         } else {
             val = getPercentHeightSize();
         }
-
         if (val > 0) {
-            val = Math.max(val, 1);//for very thin divider
+            val = Math.max(val, 1);
         }
         execute(view, val);
     }

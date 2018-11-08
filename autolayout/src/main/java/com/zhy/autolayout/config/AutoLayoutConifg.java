@@ -4,9 +4,6 @@ import android.content.Context;
 
 import com.zhy.autolayout.utils.DisplayUtil;
 
-/**
- * Created by zhy on 15/11/18.
- */
 public class AutoLayoutConifg {
 
     private static AutoLayoutConifg sIntance = new AutoLayoutConifg();
@@ -64,12 +61,8 @@ public class AutoLayoutConifg {
     private void initMetaData(Context context) {
 
         mDesignWidth = DisplayUtil.getMetaDataWid(context);
-        //        mDesignHeight = DisplayUtil.getMetaDataHei(context);
-        //用屏幕的长宽高比例计算design高度，用来避免出现全面屏或者虚拟按键变形
-        //        mDesignHeight = mDesignWidth *(DisplayUtil.getDisplay(context).heightPixels / DisplayUtil.getDisplay(context).widthPixels);
         mDesignHeight = mDesignWidth *
                 DisplayUtil.getDisplay(context).heightPixels / DisplayUtil.getDisplay(context).widthPixels;
-        //        mDesignHeight = (int) (mDesignHeight*DisplayUtil.getScaling());
 
     }
 

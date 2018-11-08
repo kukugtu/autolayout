@@ -19,7 +19,7 @@ allprojects {
 Step 2. Add the dependency
 
  dependencies {
-         implementation 'com.github.kukugtu:autolayout:1.0'
+         implementation 'com.github.kukugtu:autolayout:1.2'
  }
 
 
@@ -28,5 +28,6 @@ Step 2. Add the dependency
 适配虚拟按键，包括华为可变的虚拟按键
 理论上在任何大小屏幕上的显示比例都是一样的
 
+
 总体还是原来autolayout的思路，只是原项目不维护了，现在维护一下解决了平时项目中遇到的大部分问题。
-有问题可；联系QQ 54751455
+有问题可联系QQ 54751455

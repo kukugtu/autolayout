@@ -4,10 +4,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zhy.autolayout.AutoLinearLayout;
+import com.zhy.autolayout.utils.AutoUtils;
 import com.zhy.autolayout.utils.DisplayUtil;
 
 /**
@@ -22,7 +22,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Util.setStatusBarLeave((ViewGroup) findViewById(R.id.base_view), this);
+        DisplayUtil.setStatusBarLeave((ViewGroup) findViewById(R.id.base_view), this);
         getRootView().setBackgroundColor(Color.BLACK);
         Util.setStatusBarTextStyle(this, Util.LIGHT_TEXTCOLOR);
 
@@ -33,13 +33,23 @@ public class MainActivity extends BaseActivity {
         textView.setText("我是从代码中添加的View");
         textView.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
 
-        LinearLayout.LayoutParams params = new AutoLinearLayout.LayoutParams(
-                (int) (DisplayUtil.getRateWid(this) * 540),
-                (int) (DisplayUtil.getRateHei(this) * 540));
-        params.leftMargin = (int) (DisplayUtil.getRateWid(this) * 270);
-        params.bottomMargin = (int) (DisplayUtil.getRateHei(this) * 270);
-        params.topMargin = (int) (DisplayUtil.getRateHei(this) * 270);
-        view.addView(textView, params);
+        //        LinearLayout.LayoutParams params = new AutoLinearLayout.LayoutParams(
+        //                (int) (DisplayUtil.getRateWid(this) * 540),
+        //                (int) (DisplayUtil.getRateHei(this) * 540));
+        //        params.leftMargin = (int) (DisplayUtil.getRateWid(this) * 270);
+        //        params.bottomMargin = (int) (DisplayUtil.getRateHei(this) * 270);
+        //        params.topMargin = (int) (DisplayUtil.getRateHei(this) * 270);
+
+
+        AutoLinearLayout.LayoutParams params = new AutoLinearLayout.LayoutParams(540, 540);
+        params.leftMargin = 270;
+        params.bottomMargin = 270;
+        params.topMargin = 270;
+
+        textView.setLayoutParams(params);
+        AutoUtils.auto(textView);
+
+        view.addView(textView);
     }
 
     @Override
