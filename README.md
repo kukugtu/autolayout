@@ -16,7 +16,7 @@ allprojects {
 Step 2. Add the dependency
 
  dependencies {
-         implementation 'com.github.kukugtu:autolayout:1.3'
+         implementation 'com.github.kukugtu:autolayout:1.4'
  }
 
 
