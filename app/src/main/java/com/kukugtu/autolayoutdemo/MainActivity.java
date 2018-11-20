@@ -1,7 +1,7 @@
 package com.kukugtu.autolayoutdemo;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,7 +25,7 @@ public class MainActivity extends AutoLayoutActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        DisplayUtil.changeViewByStatus(this);
 
         Util.setStatusBarLeave((ViewGroup) findViewById(R.id.base_view), this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -50,7 +50,7 @@ public class MainActivity extends AutoLayoutActivity {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,ExtraActivity.class));
+                startActivity(new Intent(MainActivity.this, MainActivity.class));
             }
         });
 
@@ -69,11 +69,28 @@ public class MainActivity extends AutoLayoutActivity {
         //        AutoUtils.auto(change_attr);
 
         //更改自定义View的属性
-        MyLineTextView my_view  = findViewById(R.id.my_view);
+        MyLineTextView my_view = findViewById(R.id.my_view);
         AutoLinearLayout.LayoutParams myLayoutParams = new AutoLinearLayout.LayoutParams(
                 (AutoLinearLayout.LayoutParams) change_attr.getLayoutParams());
         myLayoutParams.width = (int) (300 * DisplayUtil.getRateWid());
         my_view.setLayoutParams(myLayoutParams);
 
+    }
+
+    /**
+     *
+     * @param newConfig
+     */
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        DisplayUtil.changeViewByStatus(this);
+
+    }
+
+    @Override
+    public void onMultiWindowModeChanged(boolean isInMultiWindowMode, Configuration newConfig) {
+        super.onMultiWindowModeChanged(isInMultiWindowMode, newConfig);
+        DisplayUtil.changeViewByStatus(this);
     }
 }

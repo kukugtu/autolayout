@@ -70,22 +70,15 @@ public class AutoLayoutHelper {
     private static final int INDEX_MIN_WIDTH = 15;
     private static final int INDEX_MIN_HEIGHT = 16;
 
-    private static AutoLayoutConifg mAutoLayoutConifg;
+    private static AutoLayoutConifg mAutoLayoutConifg = AutoLayoutConifg.getInstance();
 
     public AutoLayoutHelper(ViewGroup host) {
         mHost = host;
 
-        if (mAutoLayoutConifg == null) {
-            initAutoLayoutConfig(host);
+        if (!mAutoLayoutConifg.isInited()) {
+            mAutoLayoutConifg.init(host.getContext());
         }
-
     }
-
-    private void initAutoLayoutConfig(ViewGroup host) {
-        mAutoLayoutConifg = AutoLayoutConifg.getInstance();
-        mAutoLayoutConifg.init(host.getContext());
-    }
-
 
     public void adjustChildren() {
         AutoLayoutConifg.getInstance().checkParams();

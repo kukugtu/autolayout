@@ -47,8 +47,13 @@ public class DisplayUtil {
 
     //px转sp 设置代码中设置字体大小时，好像大小事sp
     public static int px2sp(Context context, float pxValue) {
-        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
+    }
+
+    public static int dp2px(Context context, float dpValue) {
+        float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 
     //获取Display对象
@@ -108,4 +113,20 @@ public class DisplayUtil {
         }
         return metaDataValue;
     }
+
+
+
+    public static void changeViewByStatus(Context activity) {
+
+        WindowManager wm = (WindowManager) activity.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics dm = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(dm);
+        int wid = dm.widthPixels;
+        AutoLayoutConifg.getInstance().initScreen(wid,
+                DisplayUtil.getDisplay(activity).heightPixels,
+                1080,
+                1920);
+
+    }
+
 }
