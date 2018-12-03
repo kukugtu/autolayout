@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.autolayout.AutoLinearLayout
+<com.kukugtu.autolayout.AutoLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00ff00"
     android:orientation="horizontal">
+
 
     <TextView
         android:layout_width="540px"
@@ -23,4 +24,4 @@
         android:text="RecycleView适配"
         android:textSize="50px"/>
 
-</com.zhy.autolayout.AutoLinearLayout>
+</com.kukugtu.autolayout.AutoLinearLayout>

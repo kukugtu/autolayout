@@ -16,10 +16,10 @@ allprojects {
 Step 2. Add the dependency
 
  dependencies {
-         implementation 'com.github.kukugtu:autolayout:1.4'
+         implementation 'com.github.kukugtu:autolayout:1.6'
  }
 
 
-version1.5:
+version1.6:
 
 有问题可联系QQ 54751455

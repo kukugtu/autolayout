@@ -8,7 +8,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.zhy.autolayout.utils.DisplayUtil;
+import com.kukugtu.autolayout.utils.DisplayUtil;
 
 public class MyLineTextView extends View {
 
@@ -52,7 +52,7 @@ public class MyLineTextView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        width = (int) (MeasureSpec.getSize(widthMeasureSpec));
+        width = (int) (MeasureSpec.getSize(widthMeasureSpec)*DisplayUtil.getRateWid());
         height = (int) (MeasureSpec.getSize(heightMeasureSpec)*DisplayUtil.getRateHei());
         setMeasuredDimension(width, height);
     }
@@ -62,12 +62,12 @@ public class MyLineTextView extends View {
         super.onDraw(canvas);
         paint.setColor(lineColor);
         paint.setStrokeWidth(DisplayUtil.getRateWid() * lineSize);
-        canvas.drawLine(0, height-(DisplayUtil.getRateWid() * lineSize)/2, width, height-(DisplayUtil.getRateWid() * lineSize)/2, paint);
+        canvas.drawLine(0, height - (DisplayUtil.getRateWid() * lineSize) / 2, width, height - (DisplayUtil.getRateWid() * lineSize) / 2, paint);
 
         paint.setTextSize(DisplayUtil.getRateWid() * inTextSize);
         paint.setColor(textColor);
         Paint.FontMetricsInt centerfontMetricsInt = paint.getFontMetricsInt();
-        canvas.drawText(text, 0, height-(DisplayUtil.getRateHei() * lineSize)-centerfontMetricsInt.descent, paint);
+        canvas.drawText(text, 0, height - (DisplayUtil.getRateHei() * lineSize) - centerfontMetricsInt.descent, paint);
     }
 
     @Override

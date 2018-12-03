@@ -2,95 +2,120 @@ package com.kukugtu.autolayoutdemo;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.zhy.autolayout.AutoLayoutActivity;
-import com.zhy.autolayout.AutoLinearLayout;
-import com.zhy.autolayout.utils.AutoUtils;
-import com.zhy.autolayout.utils.DisplayUtil;
+import com.kukugtu.autolayout.AutoLayoutActivity;
+import com.kukugtu.autolayout.AutoLinearLayout;
+import com.kukugtu.autolayout.config.AutoLayoutConifg;
+import com.kukugtu.autolayout.utils.DisplayUtil;
 
-/**
- * @author kukugtu
- * @date 2018/9/27 10:00
- */
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AutoLayoutActivity {
+
+    private TextView changeViewAttr;
+    private MyLineTextView changeSelfViewAttr;
+    private TextView codeAddView;
+
+    //代码中添加的view需要记录下等屏幕改变时作出调整。
+    //注意：屏幕改变回调需要保证activity不销毁重建，否则没有意义
+    private List<View> codeViewList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        DisplayUtil.changeViewByStatus(this);
-
-        Util.setStatusBarLeave((ViewGroup) findViewById(R.id.base_view), this);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            Util.setStatusBarTextStyle(this, Util.LIGHT_TEXTCOLOR);
-        }
-        getWindow().getDecorView().setBackgroundColor(Color.BLACK);
+        codeViewList = new ArrayList<>();
 
 
         //设置居中的一个TextView
         AutoLinearLayout viewGroup = findViewById(R.id.linearlayout);
-        TextView textView = new TextView(this);
-        textView.setText("我是从代码中添加的View");
-        textView.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
-        AutoLinearLayout.LayoutParams params = new AutoLinearLayout.LayoutParams(540, 540);
-        params.leftMargin = 270;
-        params.bottomMargin = 270;
-        params.topMargin = 270;
-        textView.setLayoutParams(params);
-        AutoUtils.auto(textView);
-        viewGroup.addView(textView);
-
-        textView.setOnClickListener(new View.OnClickListener() {
+        codeAddView = new TextView(this);
+        codeAddView.setText("我是从代码中添加的View");
+        codeAddView.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
+        updateSingleViewLayoutparams(codeAddView);
+        viewGroup.addView(codeAddView);
+        codeAddView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, MainActivity.class));
             }
         });
+        codeViewList.add(codeAddView);
 
 
         //更改View的属性
-        TextView change_attr = findViewById(R.id.change_attr);
-        //此处需要注意，原本是谁的layoutparams就用谁的，如果用了ViewGroup的可能会出现属性丢失
-        AutoLinearLayout.LayoutParams layoutParams = new AutoLinearLayout.LayoutParams(
-                (AutoLinearLayout.LayoutParams) change_attr.getLayoutParams());
-        //可不用DisplayUtil用AutoUtils
-        layoutParams.width = (int) (600 * DisplayUtil.getRateWid());
-        change_attr.setLayoutParams(layoutParams);
+        changeViewAttr = findViewById(R.id.change_attr);
+        changeViewAttr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ExtraActivity.class));
+            }
+        });
+        updateSingleViewLayoutparams(changeViewAttr);
+        codeViewList.add(changeViewAttr);
 
-        //        layoutParams.width = 600;
-        //        change_attr.setLayoutParams(layoutParams);
-        //        AutoUtils.auto(change_attr);
 
         //更改自定义View的属性
-        MyLineTextView my_view = findViewById(R.id.my_view);
-        AutoLinearLayout.LayoutParams myLayoutParams = new AutoLinearLayout.LayoutParams(
-                (AutoLinearLayout.LayoutParams) change_attr.getLayoutParams());
-        myLayoutParams.width = (int) (300 * DisplayUtil.getRateWid());
-        my_view.setLayoutParams(myLayoutParams);
-
+        changeSelfViewAttr = findViewById(R.id.my_view);
+        updateSingleViewLayoutparams(changeSelfViewAttr);
+        codeViewList.add(changeSelfViewAttr);
     }
 
-    /**
-     *
-     * @param newConfig
-     */
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        DisplayUtil.changeViewByStatus(this);
-
+        updateLayoutparams(newConfig);
     }
 
     @Override
     public void onMultiWindowModeChanged(boolean isInMultiWindowMode, Configuration newConfig) {
         super.onMultiWindowModeChanged(isInMultiWindowMode, newConfig);
-        DisplayUtil.changeViewByStatus(this);
+        updateLayoutparams(newConfig);
+    }
+
+    private void updateLayoutparams(Configuration newConfig) {
+        //重新计算尺寸
+        int wid = DisplayUtil.dp2px(this, newConfig.screenWidthDp);
+        int hei = DisplayUtil.dp2px(this, newConfig.screenHeightDp);
+        AutoLayoutConifg.getInstance().initScreen(wid,
+                hei,
+                DisplayUtil.getMetaDataWid(this),
+                DisplayUtil.getMetaDataHei(this));
+
+        //代码中生成view或者改变view的params，需要重新设置layoutparams
+        for (View view : codeViewList) {
+            updateSingleViewLayoutparams(view);
+        }
+    }
+
+    private void updateSingleViewLayoutparams(View view) {
+        if (view.equals(changeViewAttr)) {
+            //此处需要注意，原本是谁的layoutparams就用谁的，如果用了ViewGroup的可能会出现属性丢失
+            AutoLinearLayout.LayoutParams layoutParams = new AutoLinearLayout.LayoutParams(
+                    (AutoLinearLayout.LayoutParams) changeViewAttr.getLayoutParams());
+            layoutParams.width = (int) (600 * DisplayUtil.getRateWid());
+            changeViewAttr.setLayoutParams(layoutParams);
+        } else if (view.equals(codeAddView)) {
+            AutoLinearLayout.LayoutParams layoutParams = new AutoLinearLayout.LayoutParams((int) (540 * DisplayUtil.getRateWid()),
+                    (int) (540 * DisplayUtil.getRateHei()));
+            layoutParams.leftMargin = (int) (270 * DisplayUtil.getRateWid());
+            layoutParams.bottomMargin = (int) (270 * DisplayUtil.getRateHei());
+            layoutParams.topMargin = (int) (270 * DisplayUtil.getRateHei());
+            codeAddView.setLayoutParams(layoutParams);
+            //代码中设置文字，需要转换
+            codeAddView.setTextSize(DisplayUtil.px2sp(this, 50 * DisplayUtil.getRateWid()));
+        } else if (view.equals(changeSelfViewAttr)) {
+            AutoLinearLayout.LayoutParams layoutParams = new AutoLinearLayout.LayoutParams(
+                    (AutoLinearLayout.LayoutParams) changeSelfViewAttr.getLayoutParams());
+            //自定义view的改变大小不需要乘比例
+            layoutParams.width = 600;
+            layoutParams.height = 600;
+            changeSelfViewAttr.setLayoutParams(layoutParams);
+        }
     }
 }
