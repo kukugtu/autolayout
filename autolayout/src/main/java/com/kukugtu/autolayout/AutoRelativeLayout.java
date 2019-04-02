@@ -10,7 +10,6 @@ import android.widget.RelativeLayout;
 import com.kukugtu.autolayout.utils.AutoLayoutHelper;
 
 public class AutoRelativeLayout extends RelativeLayout {
-    private final AutoLayoutHelper mHelper = new AutoLayoutHelper(this);
 
     public AutoRelativeLayout(Context context) {
         super(context);
@@ -37,7 +36,7 @@ public class AutoRelativeLayout extends RelativeLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         if (!isInEditMode())
-            mHelper.adjustChildren();
+            AutoLayoutHelper.adjustChildren(this);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 

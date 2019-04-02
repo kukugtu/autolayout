@@ -10,7 +10,6 @@ import android.widget.FrameLayout;
 import com.kukugtu.autolayout.utils.AutoLayoutHelper;
 
 public class AutoFrameLayout extends FrameLayout {
-    private final AutoLayoutHelper mHelper = new AutoLayoutHelper(this);
 
     public AutoFrameLayout(Context context) {
         super(context);
@@ -37,7 +36,7 @@ public class AutoFrameLayout extends FrameLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         if (!isInEditMode()) {
-            mHelper.adjustChildren();
+            AutoLayoutHelper.adjustChildren(this);
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }

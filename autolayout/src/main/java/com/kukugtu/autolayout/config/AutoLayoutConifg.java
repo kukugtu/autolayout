@@ -51,19 +51,21 @@ public class AutoLayoutConifg {
         return mDesignHeight;
     }
 
-    public boolean isInited() {
-        return inited;
-    }
-
     /**
      * 初始化屏幕参数
      */
+    public void init(Context context,boolean reInit) {
+        if(!inited||reInit){
+            mScreenWidth = DisplayUtil.getDisplay(context).widthPixels;
+            mScreenHeight = DisplayUtil.getDisplay(context).heightPixels;
+            mDesignWidth = DisplayUtil.getMetaDataWid(context);
+            mDesignHeight = mDesignWidth * mScreenHeight / mScreenWidth;
+            inited = true;
+        }
+    }
+
     public void init(Context context) {
-        mScreenWidth = DisplayUtil.getDisplay(context).widthPixels;
-        mScreenHeight = DisplayUtil.getDisplay(context).heightPixels;
-        mDesignWidth = DisplayUtil.getMetaDataWid(context);
-        mDesignHeight = mDesignWidth * mScreenHeight / mScreenWidth;
-        inited = true;
+        init(context,false);
     }
 
     /**

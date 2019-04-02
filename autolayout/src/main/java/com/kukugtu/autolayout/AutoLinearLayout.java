@@ -11,7 +11,6 @@ import com.kukugtu.autolayout.utils.AutoLayoutHelper;
 
 public class AutoLinearLayout extends LinearLayout {
 
-    private AutoLayoutHelper mHelper = new AutoLayoutHelper(this);
 
     public AutoLinearLayout(Context context) {
         super(context);
@@ -34,7 +33,7 @@ public class AutoLinearLayout extends LinearLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         if (!isInEditMode())
-            mHelper.adjustChildren();
+            AutoLayoutHelper.adjustChildren(this);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
