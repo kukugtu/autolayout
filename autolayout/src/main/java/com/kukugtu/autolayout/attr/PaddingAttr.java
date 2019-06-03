@@ -2,32 +2,19 @@ package com.kukugtu.autolayout.attr;
 
 import android.view.View;
 
-public class PaddingAttr extends AutoAttr {
-    public PaddingAttr(int pxVal, int baseWidth, int baseHeight) {
-        super(pxVal, baseWidth, baseHeight);
-    }
+import com.kukugtu.autolayout.utils.DisplayUtil;
 
-    @Override
-    protected int attrVal() {
-        return Attrs.PADDING;
+public class PaddingAttr extends AutoAttr {
+    public PaddingAttr(int pxVal) {
+        super(pxVal);
     }
 
     @Override
     public void apply(View view) {
-        int l, t, r, b;
-        if (useDefault()) {
-            l = r = getPercentWidthSize();
-            t = b = getPercentHeightSize();
-            view.setPadding(l, t, r, b);
-            return;
-        }
-        super.apply(view);
+        int all = DisplayUtil.getAutoSize(pxVal);
+        view.setPadding(all, all, all, all);
     }
 
-    @Override
-    protected boolean defaultBaseWidth() {
-        return false;
-    }
 
     @Override
     protected void execute(View view, int val) {

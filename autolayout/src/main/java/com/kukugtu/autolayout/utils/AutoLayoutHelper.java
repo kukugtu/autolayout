@@ -3,11 +3,11 @@ package com.kukugtu.autolayout.utils;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.kukugtu.autolayout.AutoLayoutInfo;
-import com.kukugtu.autolayout.R;
 import com.kukugtu.autolayout.attr.HeightAttr;
 import com.kukugtu.autolayout.attr.MarginAttr;
 import com.kukugtu.autolayout.attr.MarginBottomAttr;
@@ -69,8 +69,7 @@ public class AutoLayoutHelper {
     private static final int INDEX_MIN_WIDTH = 15;
     private static final int INDEX_MIN_HEIGHT = 16;
 
-    public static  void adjustChildren(ViewGroup mHost) {
-        AutoLayoutConifg.getInstance().init(mHost.getContext());
+    public static void adjustChildren(ViewGroup mHost) {
         AutoLayoutConifg.getInstance().checkParams();
 
         for (int i = 0, n = mHost.getChildCount(); i < n; i++) {
@@ -92,81 +91,70 @@ public class AutoLayoutHelper {
                                                    AttributeSet attrs) {
 
         AutoLayoutInfo info = new AutoLayoutInfo();
-
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AutoLayout_Layout);
-        int baseWidth = a.getInt(R.styleable.AutoLayout_Layout_layout_auto_basewidth, 0);
-        int baseHeight = a.getInt(R.styleable.AutoLayout_Layout_layout_auto_baseheight, 0);
-        a.recycle();
-
-
         TypedArray array = context.obtainStyledAttributes(attrs, LL);
-
         int n = array.getIndexCount();
 
 
         for (int i = 0; i < n; i++) {
             int index = array.getIndex(i);
 
-            if (!DisplayUtil.isPxVal(array.peekValue(index)))
-                continue;
-
-            int pxVal;
-            try {
-                pxVal = array.getDimensionPixelOffset(index, 0);
-            } catch (Exception ignore) {
+            if (!isPxVal(array.peekValue(index))) {
                 continue;
             }
+
+            int pxVal = array.getDimensionPixelOffset(index, 0);
+
             switch (index) {
                 case INDEX_TEXT_SIZE:
-                    info.addAttr(new TextSizeAttr(pxVal, baseWidth, baseHeight));
+                    info.addAttr(new TextSizeAttr(pxVal));
                     break;
                 case INDEX_PADDING:
-                    info.addAttr(new PaddingAttr(pxVal, baseWidth, baseHeight));
+                    info.addAttr(new PaddingAttr(pxVal));
                     break;
                 case INDEX_PADDING_LEFT:
-                    info.addAttr(new PaddingLeftAttr(pxVal, baseWidth, baseHeight));
+                    info.addAttr(new PaddingLeftAttr(pxVal));
                     break;
                 case INDEX_PADDING_TOP:
-                    info.addAttr(new PaddingTopAttr(pxVal, baseWidth, baseHeight));
+                    info.addAttr(new PaddingTopAttr(pxVal));
                     break;
                 case INDEX_PADDING_RIGHT:
-                    info.addAttr(new PaddingRightAttr(pxVal, baseWidth, baseHeight));
+                    info.addAttr(new PaddingRightAttr(pxVal));
                     break;
                 case INDEX_PADDING_BOTTOM:
-                    info.addAttr(new PaddingBottomAttr(pxVal, baseWidth, baseHeight));
+                    info.addAttr(new PaddingBottomAttr(pxVal));
                     break;
                 case INDEX_WIDTH:
-                    info.addAttr(new WidthAttr(pxVal, baseWidth, baseHeight));
+                    info.addAttr(new WidthAttr(pxVal));
                     break;
                 case INDEX_HEIGHT:
-                    info.addAttr(new HeightAttr(pxVal, baseWidth, baseHeight));
+                    info.addAttr(new HeightAttr(pxVal));
                     break;
                 case INDEX_MARGIN:
-                    info.addAttr(new MarginAttr(pxVal, baseWidth, baseHeight));
+                    info.addAttr(new MarginAttr(pxVal));
                     break;
                 case INDEX_MARGIN_LEFT:
-                    info.addAttr(new MarginLeftAttr(pxVal, baseWidth, baseHeight));
+                    info.addAttr(new MarginLeftAttr(pxVal));
                     break;
                 case INDEX_MARGIN_TOP:
-                    info.addAttr(new MarginTopAttr(pxVal, baseWidth, baseHeight));
+                    info.addAttr(new MarginTopAttr(pxVal));
                     break;
                 case INDEX_MARGIN_RIGHT:
-                    info.addAttr(new MarginRightAttr(pxVal, baseWidth, baseHeight));
+                    info.addAttr(new MarginRightAttr(pxVal));
                     break;
                 case INDEX_MARGIN_BOTTOM:
-                    info.addAttr(new MarginBottomAttr(pxVal, baseWidth, baseHeight));
+                    info.addAttr(new MarginBottomAttr(pxVal));
                     break;
                 case INDEX_MAX_WIDTH:
-                    info.addAttr(new MaxWidthAttr(pxVal, baseWidth, baseHeight));
+                    info.addAttr(new MaxWidthAttr(pxVal));
                     break;
                 case INDEX_MAX_HEIGHT:
-                    info.addAttr(new MaxHeightAttr(pxVal, baseWidth, baseHeight));
+                    info.addAttr(new MaxHeightAttr(pxVal));
                     break;
                 case INDEX_MIN_WIDTH:
-                    info.addAttr(new MinWidthAttr(pxVal, baseWidth, baseHeight));
+                    info.addAttr(new MinWidthAttr(pxVal));
                     break;
                 case INDEX_MIN_HEIGHT:
-                    info.addAttr(new MinHeightAttr(pxVal, baseWidth, baseHeight));
+                    info.addAttr(new MinHeightAttr(pxVal));
                     break;
                 default:
                     break;
@@ -176,8 +164,29 @@ public class AutoLayoutHelper {
         return info;
     }
 
+    public static AutoLayoutInfo getAutoLayoutInfo(ViewGroup.MarginLayoutParams source) {
+        AutoLayoutInfo info = new AutoLayoutInfo();
+        info.addAttr(new MarginBottomAttr(source.bottomMargin));
+        info.addAttr(new MarginLeftAttr(source.leftMargin));
+        info.addAttr(new MarginTopAttr(source.topMargin));
+        info.addAttr(new MarginRightAttr(source.rightMargin));
+        return info;
+    }
+
+    private static boolean isPxVal(TypedValue val) {
+        return val != null && val.type == TypedValue.TYPE_DIMENSION &&
+                getComplexUnit(val.data) == TypedValue.COMPLEX_UNIT_PX;
+    }
+
+    private static int getComplexUnit(int data) {
+        return TypedValue.COMPLEX_UNIT_MASK & (data);
+    }
+
+
+
     public interface AutoLayoutParams {
         AutoLayoutInfo getAutoLayoutInfo();
     }
+
 
 }

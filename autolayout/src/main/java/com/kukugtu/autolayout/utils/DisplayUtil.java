@@ -5,7 +5,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.Display;
 import android.view.WindowManager;
 
@@ -17,12 +16,12 @@ import java.lang.reflect.Method;
 public class DisplayUtil {
 
 
-    //获取Manifest设定的宽度 目前还没用
+    //获取Manifest设定的高度 目前还没用
     public static int getMetaDataHei(Context context) {
         return getMetaDataValue(context, "design_height");
     }
 
-    //获取anifest设定高度
+    //获取Manifest设定宽度
     public static int getMetaDataWid(Context context) {
         return getMetaDataValue(context, "design_width");
     }
@@ -34,6 +33,7 @@ public class DisplayUtil {
         return displayWid / designWid;
     }
 
+
     //获取设定与设备屏幕高比例
     public static float getRateHei() {
         int displayHei = AutoLayoutConifg.getInstance().getScreenHeight();
@@ -41,7 +41,24 @@ public class DisplayUtil {
         return displayHei / designHeight;
     }
 
-    //px转sp 设置代码中设置字体大小时，好像大小事sp
+    public static int getAutoSize(int pxVal) {
+        return getAutoSize((float) pxVal);
+    }
+
+    public static int getAutoSize(float pxVal) {
+        int screenWidth = AutoLayoutConifg.getInstance().getScreenWidth();
+        int designWidth = AutoLayoutConifg.getInstance().getDesignWidth();
+
+        int res = (int) (pxVal * screenWidth);
+        if (res % designWidth == 0) {
+            return res / designWidth;
+        } else {
+            return res / designWidth + 1;
+        }
+    }
+
+
+    //px转sp 设置代码中设置字体大小时，好像大小是sp
     public static int px2sp(Context context, float pxValue) {
         float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
@@ -74,16 +91,6 @@ public class DisplayUtil {
             e.printStackTrace();
         }
         return metrics;
-    }
-
-
-    static boolean isPxVal(TypedValue val) {
-        return val != null && val.type == TypedValue.TYPE_DIMENSION &&
-                getComplexUnit(val.data) == TypedValue.COMPLEX_UNIT_PX;
-    }
-
-    private static int getComplexUnit(int data) {
-        return TypedValue.COMPLEX_UNIT_MASK & (data);
     }
 
 

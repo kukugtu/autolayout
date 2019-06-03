@@ -1,6 +1,5 @@
 package com.kukugtu.autolayoutdemo;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -9,9 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.kukugtu.autolayout.config.AutoLayoutConifg;
-import com.kukugtu.autolayout.utils.DisplayUtil;
 
 public class ExtraActivity extends AppCompatActivity {
 
@@ -48,27 +44,5 @@ public class ExtraActivity extends AppCompatActivity {
         private ViewHolder(@NonNull View itemView) {
             super(itemView);
         }
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        updateLayoutparams(newConfig);
-    }
-
-    @Override
-    public void onMultiWindowModeChanged(boolean isInMultiWindowMode, Configuration newConfig) {
-        super.onMultiWindowModeChanged(isInMultiWindowMode, newConfig);
-        updateLayoutparams(newConfig);
-    }
-
-    private void updateLayoutparams(Configuration newConfig) {
-        //重新计算尺寸，没有代码中添加的View和修改的属性，只需要改变设计图尺寸
-        int wid = DisplayUtil.dp2px(this, newConfig.screenWidthDp);
-        int hei = DisplayUtil.dp2px(this, newConfig.screenHeightDp);
-        AutoLayoutConifg.getInstance().initScreen(wid,
-                hei,
-                DisplayUtil.getMetaDataWid(this),
-                DisplayUtil.getMetaDataHei(this));
     }
 }

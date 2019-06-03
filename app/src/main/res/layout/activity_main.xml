@@ -25,13 +25,34 @@
                 android:layout_width="200px"
                 android:layout_height="200px"
                 android:background="@color/btn_bg"
-                android:text="普通的View"/>
+                android:text="普通的View"
+                android:paddingTop="50px"
+                android:textSize="30px"/>
+
+            <TextView
+                android:layout_width="200px"
+                android:layout_height="200px"
+                android:background="@color/btn_bg"
+                android:text="普通的View"
+                android:layout_margin="200px"
+                android:paddingTop="50px"
+                android:textSize="30px"/>
+
+
+            <TextView
+                android:layout_width="200px"
+                android:layout_height="200px"
+                android:padding="50px"
+                android:layout_marginTop="200px"
+                android:background="@color/btn_bg"
+                android:text="普通的View"
+                android:textSize="30px"/>
 
             <com.kukugtu.autolayoutdemo.MyLineTextView
                 android:id="@+id/my_view"
                 android:layout_width="300px"
                 android:layout_height="300px"
-                android:layout_marginTop="200px"
+                android:layout_margin="200px"
                 app:inTextColor="#ff0000"
                 app:inTextSize="200px"
                 app:lineColor="#00ff00"
@@ -84,26 +105,38 @@
 
             </com.kukugtu.autolayout.AutoLinearLayout>
 
+
+            <TextView
+                android:layout_width="300px"
+                android:layout_height="300px"
+                android:layout_marginTop="200px"
+                android:layout_marginLeft="200px"
+                android:background="#ff0000"
+                android:text="代码中更改属性啊啊啊"
+                android:textSize="100px"/>
+
             <TextView
                 android:id="@+id/change_attr"
                 android:layout_width="300px"
                 android:layout_height="300px"
                 android:layout_marginTop="200px"
+                android:layout_marginLeft="200px"
                 android:background="#ff0000"
-                android:text="代码中更改属性"/>
+                android:text="代码中更改属性啊啊啊"
+                android:textSize="100px"/>
 
             <com.kukugtu.autolayoutdemo.AutoCardView
-                android:layout_marginTop="200px"
                 android:layout_width="300px"
                 android:layout_height="300px"
+                android:layout_marginTop="200px"
                 app:cardCornerRadius="10px">
 
                 <TextView
-                    android:textSize="30px"
                     android:layout_width="300px"
                     android:layout_height="300px"
                     android:background="#ff0000"
-                    android:text="CardView中的View"/>
+                    android:text="CardView中的View"
+                    android:textSize="30px"/>
             </com.kukugtu.autolayoutdemo.AutoCardView>
 
         </com.kukugtu.autolayout.AutoLinearLayout>

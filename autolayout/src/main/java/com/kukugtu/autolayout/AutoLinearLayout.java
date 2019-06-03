@@ -63,6 +63,7 @@ public class AutoLinearLayout extends LinearLayout {
         public AutoLayoutInfo getAutoLayoutInfo() {
             return mAutoLayoutInfo;
         }
+
         public LayoutParams(int width, int height) {
             super(width, height);
         }
@@ -74,6 +75,7 @@ public class AutoLinearLayout extends LinearLayout {
 
         public LayoutParams(MarginLayoutParams source) {
             super(source);
+            mAutoLayoutInfo = AutoLayoutHelper.getAutoLayoutInfo(source);
         }
     }
 

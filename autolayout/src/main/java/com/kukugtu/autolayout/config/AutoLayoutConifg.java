@@ -60,6 +60,7 @@ public class AutoLayoutConifg {
             mScreenHeight = DisplayUtil.getDisplay(context).heightPixels;
             mDesignWidth = DisplayUtil.getMetaDataWid(context);
             mDesignHeight = mDesignWidth * mScreenHeight / mScreenWidth;
+            AutoLayoutConifg.getInstance().checkParams();
             inited = true;
         }
     }

@@ -3,19 +3,11 @@ package com.kukugtu.autolayout.attr;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.kukugtu.autolayout.utils.DisplayUtil;
+
 public class MarginAttr extends AutoAttr {
-    public MarginAttr(int pxVal, int baseWidth, int baseHeight) {
-        super(pxVal, baseWidth, baseHeight);
-    }
-
-    @Override
-    protected int attrVal() {
-        return Attrs.MARGIN;
-    }
-
-    @Override
-    protected boolean defaultBaseWidth() {
-        return false;
+    public MarginAttr(int pxVal) {
+        super(pxVal);
     }
 
     @Override
@@ -23,13 +15,8 @@ public class MarginAttr extends AutoAttr {
         if (!(view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams)) {
             return;
         }
-        if (useDefault()) {
-            ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-            lp.leftMargin = lp.rightMargin = getPercentWidthSize();
-            lp.topMargin = lp.bottomMargin = getPercentHeightSize();
-            return;
-        }
-        super.apply(view);
+        ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+        lp.topMargin = lp.bottomMargin = lp.leftMargin = lp.rightMargin = DisplayUtil.getAutoSize(pxVal);
     }
 
     @Override

@@ -26,8 +26,9 @@ public class AutoLayoutActivity extends AppCompatActivity {
             view = new AutoRelativeLayout(context, attrs);
         }
 
-        if (view != null)
+        if (view != null){
             return view;
+        }
 
         return super.onCreateView(name, context, attrs);
     }

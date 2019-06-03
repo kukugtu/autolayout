@@ -4,18 +4,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class MarginRightAttr extends AutoAttr {
-    public MarginRightAttr(int pxVal, int baseWidth, int baseHeight) {
-        super(pxVal, baseWidth, baseHeight);
-    }
-
-    @Override
-    protected int attrVal() {
-        return Attrs.MARGIN_RIGHT;
-    }
-
-    @Override
-    protected boolean defaultBaseWidth() {
-        return true;
+    public MarginRightAttr(int pxVal) {
+        super(pxVal);
     }
 
     @Override
@@ -27,20 +17,4 @@ public class MarginRightAttr extends AutoAttr {
         lp.rightMargin = val;
     }
 
-
-    public static MarginRightAttr generate(int val, int baseFlag) {
-        MarginRightAttr attr = null;
-        switch (baseFlag) {
-            case AutoAttr.BASE_WIDTH:
-                attr = new MarginRightAttr(val, Attrs.MARGIN_RIGHT, 0);
-                break;
-            case AutoAttr.BASE_HEIGHT:
-                attr = new MarginRightAttr(val, 0, Attrs.MARGIN_RIGHT);
-                break;
-            case AutoAttr.BASE_DEFAULT:
-                attr = new MarginRightAttr(val, 0, 0);
-                break;
-        }
-        return attr;
-    }
 }
