@@ -16,7 +16,7 @@ allprojects {
 >###### Step 2. Add the dependency
 ```
  dependencies {
-         implementation 'com.github.kukugtu:autolayout:1.7'
+         implementation 'com.github.kukugtu:autolayout:1.8'
  }
 ```
 version1.7:

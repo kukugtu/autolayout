@@ -8,6 +8,7 @@ import com.kukugtu.autolayout.AutoFrameLayout;
 import com.kukugtu.autolayout.utils.AutoLayoutHelper;
 
 public class AutoCardView extends CardView {
+    private final AutoLayoutHelper mHelper = new AutoLayoutHelper(this);
 
     public AutoCardView(Context context) {
         super(context);
@@ -29,7 +30,7 @@ public class AutoCardView extends CardView {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         if (!isInEditMode()) {
-            AutoLayoutHelper.adjustChildren(this);
+            mHelper.adjustChildren();
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }

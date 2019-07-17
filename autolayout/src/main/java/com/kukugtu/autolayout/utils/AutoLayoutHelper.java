@@ -28,6 +28,7 @@ import com.kukugtu.autolayout.attr.WidthAttr;
 import com.kukugtu.autolayout.config.AutoLayoutConifg;
 
 public class AutoLayoutHelper {
+    private final ViewGroup mHost;
 
     private static final int[] LL = new int[]{ //
             android.R.attr.textSize,
@@ -69,8 +70,17 @@ public class AutoLayoutHelper {
     private static final int INDEX_MIN_WIDTH = 15;
     private static final int INDEX_MIN_HEIGHT = 16;
 
-    public static  void adjustChildren(ViewGroup mHost) {
-        AutoLayoutConifg.getInstance().init(mHost.getContext());
+    private static AutoLayoutConifg mAutoLayoutConifg = AutoLayoutConifg.getInstance();
+
+    public AutoLayoutHelper(ViewGroup host) {
+        mHost = host;
+
+        if (!mAutoLayoutConifg.isInited()) {
+            mAutoLayoutConifg.init(host.getContext());
+        }
+    }
+
+    public void adjustChildren() {
         AutoLayoutConifg.getInstance().checkParams();
 
         for (int i = 0, n = mHost.getChildCount(); i < n; i++) {
