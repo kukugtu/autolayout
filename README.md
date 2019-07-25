@@ -19,6 +19,6 @@ allprojects {
          implementation 'com.github.kukugtu:autolayout:1.8'
  }
 ```
-version1.7:
+version1.8:
 
 有问题可联系QQ 54751455
