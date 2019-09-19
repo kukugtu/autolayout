@@ -1,9 +1,11 @@
 package com.kukugtu.autolayout;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class AutoLayoutActivity extends AppCompatActivity {
     private static final String LAYOUT_LINEARLAYOUT = "LinearLayout";
@@ -12,7 +14,7 @@ public class AutoLayoutActivity extends AppCompatActivity {
 
 
     @Override
-    public View onCreateView(String name, Context context, AttributeSet attrs) {
+    public View onCreateView(String name, @NonNull Context context, @NonNull AttributeSet attrs) {
         View view = null;
         if (name.equals(LAYOUT_FRAMELAYOUT)) {
             view = new AutoFrameLayout(context, attrs);

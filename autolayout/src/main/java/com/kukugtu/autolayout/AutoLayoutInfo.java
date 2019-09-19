@@ -25,6 +25,8 @@ import com.kukugtu.autolayout.attr.WidthAttr;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+
 public class AutoLayoutInfo {
     private List<AutoAttr> autoAttrs = new ArrayList<>();
 
@@ -122,6 +124,7 @@ public class AutoLayoutInfo {
     }
 
 
+    @NonNull
     @Override
     public String toString() {
         return "AutoLayoutInfo{" +

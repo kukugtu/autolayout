@@ -1,11 +1,12 @@
 package com.kukugtu.autolayoutdemo;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 
 import com.kukugtu.autolayout.AutoFrameLayout;
 import com.kukugtu.autolayout.utils.AutoLayoutHelper;
+
+import androidx.cardview.widget.CardView;
 
 public class AutoCardView extends CardView {
     private final AutoLayoutHelper mHelper = new AutoLayoutHelper(this);

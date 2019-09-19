@@ -14,6 +14,8 @@ import com.kukugtu.autolayout.utils.DisplayUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+
 public class MainActivity extends AutoLayoutActivity {
 
     private TextView changeViewAttr;
@@ -67,7 +69,7 @@ public class MainActivity extends AutoLayoutActivity {
 
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         updateLayoutparams(newConfig);
     }
