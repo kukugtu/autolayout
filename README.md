@@ -27,8 +27,3 @@ allprojects {
  }
 ```
 version1.8:
-
-有问题可联系QQ 54751455
-
-我想要个IDEA激活码2020。09.17
-https://www.jetbrains.com/shop/eform/opensource
